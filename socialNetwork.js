@@ -51,6 +51,18 @@ function listUsers(){
       }
     //print the people they follow
     console.log(`${data[user]["name"]} follows ${listOfFol}`);
+      let whoFol = [];
+    for(let folUser in data){
+
+        for(let i = 0; i < data[folUser]["follows"].length; i++){
+          if(data[folUser]["follows"][i] == user){
+            whoFol.push(data[folUser]["name"]);
+          }
+        }
+       // console.log(`${data[user]["name"]} is followed by ${whoFol}`)
+    }
+    whoFol.join();
+    console.log(`${data[user]["name"]} is followed by ${whoFol}`);
   }
 
 
