@@ -39,7 +39,7 @@ function listUsers(){
   //create a for in loop to list each user
   for(let user in data){
     //prints the users name
-    console.log(data[user]["name"]);
+    //console.log(data[user]["name"]);
     //create an empty array to store a list of names
     let listOfFol = [];
       //a for loop running through a users follows array
@@ -68,4 +68,22 @@ function listUsers(){
 
 }
 
-listUsers();
+//listUsers();
+
+//identify who follows the most users
+
+function mostFollowers(){
+  let max = data["f01"]["follows"].length
+  let nameOfMax = data["f01"]["name"];
+
+  for(let user in data){
+    if(data[user]["follows"].length > max){
+      max = data[user]["follows"].length
+      nameOfMax = data[user]["name"];
+    }
+  }
+
+  console.log(`${nameOfMax} has the most followers with ${max}`);
+}
+
+mostFollowers();
