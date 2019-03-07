@@ -2,7 +2,7 @@ var data = {
   f01: {
     name: "Alice",
     age: 15,
-    follows: ["f02", "f03", "f04"]
+    follows: ["f02", "f03", "f04"],
   },
   f02: {
     name: "Bob",
@@ -131,36 +131,92 @@ function mostFollowers(){
 
 function mostFollowersOver30(){
 
-  let arr = [];
-  let arr1 = [];
+  let userId = [];
+  let followCount = [];
 
   for(let user in data){
-    if(data[user]["age"] > 30)
-    arr.push(user);
-    arr1.push(0);
+    userId.push(user);
+    followCount.push(0);
   }
 
   for(let user in data){
     let temp = 0;
     for(let i = 0; i < data[user]["follows"].length; i++){
-     temp = arr.indexOf(data[user]["follows"][i])
-     arr1[temp]++
+
+    if(data[user]["age"] > 30){
+
+       temp = userId.indexOf(data[user]["follows"][i])
+       followCount[temp]++
+   }
     }
   }
 
-  let maxFollow = Math.max(...arr1);
+  let maxFollow = Math.max(...followCount);
   let arrInd = []
 
-  for(let i = 0; i < arr1.length; i++){
-    if(maxFollow == arr1[i]){
+  for(let i = 0; i < followCount.length; i++){
+    if(maxFollow == followCount[i]){
       arrInd.push(i);
     }
   }
 
   for(let i = 0; i < arrInd.length; i++){
-    console.log(`${data[arr[arrInd[i]]]["name"]} has the most followers with ${maxFollow} followers`)
+    console.log(`${data[userId[arrInd[i]]]["name"]} has the most followers over 30 with ${maxFollow} followers`)
   }
 
 }
 
-mostFollowersOver30();
+//alice debbie finn at 2 people
+//mostFollowersOver30();
+
+
+function whoFollowsMostOver30(){
+
+  let max = 0
+  let nameOfMax = ""
+  let count = 0
+
+  for(let user in data){
+
+    for(let i = 0; i < data[user]["follows"].length; i++){
+      if(data[data[user]["follows"][i]]["age"] > 30){
+        count ++;
+      }
+    }
+
+
+    if(count > max){
+      max = count
+      nameOfMax = data[user]["name"];
+    }
+    count = 0
+  }
+
+  console.log(`${nameOfMax} follows the most people over 30 ${max}`);
+}
+
+//whoFollowsMostOver30();
+
+//List those who follow someone that doesn't follow them back
+
+function followWhoDoesntFollowBack () {
+
+let flag = false;
+
+  for(let user in data){
+
+    for(let i = 0; i < data[user]["follows"].length; i++){
+      if(data[data[user]["follows"][i]]["follows"].includes(user)){
+        flag = true;
+      }
+    }
+    if(!flag){
+      console.log(data[user]["name"]);
+    }
+    flag = false;
+  }
+
+}
+
+//Alice, Bob, Charlie, Debbie, Finn
+followWhoDoesntFollowBack()
