@@ -72,7 +72,7 @@ function listUsers(){
 
 //identify who follows the most users
 
-function mostFollowers(){
+function followsMost(){
   let max = data["f01"]["follows"].length
   let nameOfMax = data["f01"]["name"];
 
@@ -83,7 +83,84 @@ function mostFollowers(){
     }
   }
 
-  console.log(`${nameOfMax} has the most followers with ${max}`);
+  console.log(`${nameOfMax} follows the most people at ${max}`);
 }
 
-mostFollowers();
+//followsMost();
+
+//identify who has the most followers
+
+function mostFollowers(){
+  let arr = [];
+  let arr1 = [];
+
+  for(let user in data){
+    arr.push(user);
+    arr1.push(0);
+  }
+
+  for(let user in data){
+    let temp = 0;
+    for(let i = 0; i < data[user]["follows"].length; i++){
+     temp = arr.indexOf(data[user]["follows"][i])
+     arr1[temp]++
+    }
+  }
+
+  let maxFollow = Math.max(...arr1);
+  let arrInd = []
+
+  for(let i = 0; i < arr1.length; i++){
+    if(maxFollow == arr1[i]){
+      arrInd.push(i);
+    }
+  }
+
+  for(let i = 0; i < arrInd.length; i++){
+    console.log(`${data[arr[arrInd[i]]]["name"]} has the most followers with ${maxFollow} followers`)
+  }
+
+  //console.log(maxFollow);
+  // console.log(arr1)
+
+}
+
+//mostFollowers();
+
+//Identify who has the most followers over 30
+
+function mostFollowersOver30(){
+
+  let arr = [];
+  let arr1 = [];
+
+  for(let user in data){
+    if(data[user]["age"] > 30)
+    arr.push(user);
+    arr1.push(0);
+  }
+
+  for(let user in data){
+    let temp = 0;
+    for(let i = 0; i < data[user]["follows"].length; i++){
+     temp = arr.indexOf(data[user]["follows"][i])
+     arr1[temp]++
+    }
+  }
+
+  let maxFollow = Math.max(...arr1);
+  let arrInd = []
+
+  for(let i = 0; i < arr1.length; i++){
+    if(maxFollow == arr1[i]){
+      arrInd.push(i);
+    }
+  }
+
+  for(let i = 0; i < arrInd.length; i++){
+    console.log(`${data[arr[arrInd[i]]]["name"]} has the most followers with ${maxFollow} followers`)
+  }
+
+}
+
+mostFollowersOver30();
